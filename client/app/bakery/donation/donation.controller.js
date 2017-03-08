@@ -3,10 +3,12 @@
 (function(){
 
 class DonationComponent {
-  constructor() {
+  constructor($http) {
     this.cardNumber = 1;
     this.listDonations = [];
     this.item = {};
+
+    this.http = $http;
   }
 
   setPreviousCardNumber() {
@@ -22,10 +24,27 @@ class DonationComponent {
     this.item = {};
   }
 
-  debug() {
-    console.log(this.item);
-    console.log(this.listDonations);
+  getTwoDigitsHour(date) {
+    if (typeof date !== 'undefined') {
+      return ('0'+ date.getHours() ).slice(-2);
+    }
   }
+
+  getTwoDigitsMinutes(date) {
+    if (typeof date !== 'undefined') {
+      return ('0'+ date.getMinutes() ).slice(-2);
+    }
+  }
+
+  getFormattedTime(date) {
+    if (typeof date !== 'undefined') {
+      var hours = this.getTwoDigitsHour(date);
+      var minutes = this.getTwoDigitsMinutes(date);
+      return hours + "h" + minutes;
+    }
+  }
+
+
 }
 
 angular.module('saveBordeauxApp')
